@@ -1,4 +1,11 @@
 *.o
 *.a
+*.mod
 # ignore custom ones
 Makefile.inc 
+
+# example binaries
+examples/c_example
+examples/c_example_save_restore
+examples/dsimpletest
+examples/dsimpletest_save_restore
