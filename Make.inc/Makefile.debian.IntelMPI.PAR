@@ -6,7 +6,7 @@
 # metis (parmetis), scotch (ptscotch), openmpi, gfortran
 
 # packages installation : 
-# apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev lapack-dev
+# apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
 # Begin orderings
 LSCOTCHDIR = /usr/lib
@@ -48,8 +48,7 @@ FL = mpif90 -fPIC
 AR = ar vr 
 RANLIB = ranlib
 
-
-INCPAR = -I$(I_MPI_ROOT)/intel64/include/openmpi
+INCPAR = -I$(I_MPI_ROOT)/intel64/include
 LAPACK = -L$(MKLROOT) -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blas95_lp64 -lmkl_lapack95_lp64
 SCALAP  = -L$(MKLROOT) -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blacs_intelmpi_lp64 -liomp5 -lpthread -lm -ldl
 LIBPAR = $(SCALAP) $(LAPACK) $(I_MPI_ROOT)/intel64/lib/release_mt/libmpi.so $(I_MPI_ROOT)/intel64/lib/libmpifort.so
