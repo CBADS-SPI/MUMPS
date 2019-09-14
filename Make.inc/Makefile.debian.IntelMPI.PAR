@@ -23,7 +23,7 @@ LMETISDIR = /usr/lib
 IMETIS    = -I/usr/include/parmetis
 #IMETIS    = -I/usr/include/metis
 
- LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
+ LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis -lptscotchparmetis
 # LMETIS    = -L$(LMETISDIR) -lmetis
 
 # Corresponding variables reused later
