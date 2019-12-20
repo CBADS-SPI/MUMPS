@@ -9,21 +9,21 @@
 # apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
 # Begin orderings
-LSCOTCHDIR = /usr/lib
-ISCOTCH   = -I/usr/include/scotch
+LSCOTCHDIR = /usr/local/lib
+ISCOTCH   = -I/usr/local/include
 
-LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
+LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr -lz
 #LSCOTCH   = -L$(LSCOTCHDIR) -lesmumps -lscotch -lscotcherr
 
 LPORDDIR = $(topdir)/PORD/lib/
 IPORD    = -I$(topdir)/PORD/include/
 LPORD    = -L$(LPORDDIR) -lpord
 
-LMETISDIR = /usr/lib 
+LMETISDIR = /usr/local/lib 
 IMETIS    = -I/usr/include/parmetis
 #IMETIS    = -I/usr/include/metis
 
- LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis -lptscotchparmetis
+ LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis -lptscotchparmetis -lptscotch -lscotch -lscotcherr
 # LMETIS    = -L$(LMETISDIR) -lmetis
 
 # Corresponding variables reused later
@@ -48,10 +48,10 @@ FL = mpifort -fPIC
 AR = ar vr 
 RANLIB = ranlib
 
-INCPAR = -I$(I_MPI_ROOT)/intel64/include
+INCPAR = -I/usr/include/mpi
 LAPACK = -L$(MKLROOT) -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blas95_lp64 -lmkl_lapack95_lp64
-SCALAP  = -L$(MKLROOT) -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blacs_intelmpi_lp64 -liomp5 -lpthread -lm -ldl
-LIBPAR = $(SCALAP) $(LAPACK) $(I_MPI_ROOT)/intel64/lib/release_mt/libmpi.so $(I_MPI_ROOT)/intel64/lib/libmpifort.so
+SCALAP  = -L$(MKLROOT) -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blacs_openmpi_lp64 -liomp5 -lpthread -lm -ldl
+LIBPAR = $(SCALAP) $(LAPACK) -lmpi
 
 INCSEQ = -I$(topdir)/libseq
 LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
