@@ -56,7 +56,7 @@ LIBPAR = $(SCALAP) $(LAPACK) -lmpi
 INCSEQ = -I$(topdir)/libseq
 LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
 
-LIBBLAS = -lblas
+LIBBLAS = -lmkl_blas95_lp64
 LIBOTHERS = -lpthread
 
 #Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
