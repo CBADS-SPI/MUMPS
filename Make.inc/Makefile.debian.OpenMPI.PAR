@@ -53,8 +53,8 @@ LAPACK = -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core
 SCALAP  = -L$(MKLROOT)/lib/intel64 -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_intel_thread -lmkl_core -lmkl_blacs_openmpi_lp64 -liomp5 -lpthread -lm -ldl
 LIBPAR = $(SCALAP) $(LAPACK) -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi
 
-INCSEQ = -I$(topdir)/libseq
-LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
+#INCSEQ = -I$(topdir)/libseq
+#LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
 
 LIBBLAS = -lmkl_blas95_lp64
 LIBOTHERS = -lpthread
