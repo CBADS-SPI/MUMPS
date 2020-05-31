@@ -9,3 +9,8 @@ examples/c_example
 examples/c_example_save_restore
 examples/dsimpletest
 examples/dsimpletest_save_restore
+examples/c_sparse_example
+
+# intermediates
+include/mumps_int_def.h
+src/build_mumps_int_def
