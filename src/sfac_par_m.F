@@ -1,6 +1,6 @@
 C
-C  This file is part of MUMPS 5.3.0, released
-C  on Tue Mar 31 17:14:49 UTC 2020
+C  This file is part of MUMPS 5.3.3, released
+C  on Mon Jun 15 09:57:25 UTC 2020
 C
 C
 C  Copyright 1991-2020 CERFACS, CNRS, ENS Lyon, INP Toulouse, Inria,
@@ -8,32 +8,22 @@ C  Mumps Technologies, University of Bordeaux.
 C
 C  This version of MUMPS is provided to you free of charge. It is
 C  released under the CeCILL-C license:
-C  http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html
+C  https://cecill.info/licences/Licence_CeCILL-C_V1-en.html
 C
       MODULE SMUMPS_FAC_PAR_M
       CONTAINS
-      SUBROUTINE SMUMPS_FAC_PAR(N,IW,LIW,A,LA,
-     &             NSTK_STEPS, NBPROCFILS,ND,FILS,STEP,
-     &             FRERE, DAD, CAND,
-     &             ISTEP_TO_INIV2, TAB_POS_IN_PERE,
-     &             NSTEPSDONE, OPASS, OPELI, NELVA, COMP,
-     &             MAXFRT, NMAXNPIV, NTOTPV, NOFFNEGPV,
-     &             NB22T1, NB22T2, NBTINY, DET_EXP, DET_MANT, DET_SIGN,
-     &             PTRIST, PTRAST,
-     &             PIMASTER, PAMASTER, PTRARW, PTRAIW,
-     &             ITLOC, RHS_MUMPS, IPOOL, LPOOL,
-     &             RINFO, POSFAC ,IWPOS, LRLU, IPTRLU,
-     &             LRLUS, LEAF, NBROOT, NBRTOT,
-     &             UU, ICNTL, PTLUST, PTRFAC, INFO,
-     &             KEEP,KEEP8,
-     &             PROCNODE_STEPS,SLAVEF,MYID, COMM_NODES,
-     &             MYID_NODES,
-     &             BUFR,LBUFR,LBUFR_BYTES,INTARR,DBLARR,root,
-     &             PERM, NELT, FRTPTR, FRTELT, LPTRAR,
-     &             COMM_LOAD, ASS_IRECV, SEUIL, SEUIL_LDLT_NIV2,
-     &             MEM_DISTRIB, NE, DKEEP,PIVNUL_LIST,LPN_LIST
-     &             ,LRGROUPS
-     &             )
+      SUBROUTINE SMUMPS_FAC_PAR(N, IW, LIW, A, LA, NSTK_STEPS,
+     & NBPROCFILS, ND, FILS, STEP, FRERE, DAD, CAND, ISTEP_TO_INIV2,
+     & TAB_POS_IN_PERE, NSTEPSDONE, OPASS, OPELI, NELVA, COMP, MAXFRT,
+     & NMAXNPIV, NTOTPV, NOFFNEGPV, NB22T1, NB22T2, NBTINY, DET_EXP,
+     & DET_MANT, DET_SIGN, PTRIST, PTRAST, PIMASTER, PAMASTER,
+     & PTRARW, PTRAIW, ITLOC, RHS_MUMPS, IPOOL, LPOOL,
+     & RINFO, POSFAC ,IWPOS, LRLU, IPTRLU, LRLUS, LEAF, NBROOT, NBRTOT,
+     & UU, ICNTL, PTLUST, PTRFAC, INFO, KEEP,KEEP8, PROCNODE_STEPS,
+     & SLAVEF,MYID, COMM_NODES, MYID_NODES, BUFR, LBUFR, LBUFR_BYTES,
+     & INTARR, DBLARR, root, PERM, NELT, FRTPTR, FRTELT, LPTRAR,
+     & COMM_LOAD, ASS_IRECV, SEUIL, SEUIL_LDLT_NIV2, MEM_DISTRIB, NE,
+     & DKEEP, PIVNUL_LIST, LPN_LIST, LRGROUPS )
 !$    USE OMP_LIB
       USE SMUMPS_DYNAMIC_MEMORY_M, ONLY : SMUMPS_DM_CBSTATIC2DYNAMIC,
      &                                    SMUMPS_DM_FREEALLDYNAMICCB
@@ -144,11 +134,6 @@ C
       INTEGER :: I
       ITLOC(1:N+KEEP(253)) =0
       ASS_IRECV = MPI_REQUEST_NULL
-      PTRIST(1:KEEP(28))=0
-      PTLUST(1:KEEP(28))=0
-      PTRAST(1:KEEP(28))=0_8
-      PTRFAC(1:KEEP(28))=-99999_8
-      PIMASTER(1:KEEP(28))=-99999_8
       MP = ICNTL(2)
       LP = ICNTL(1)
       IWPOSCB = LIW
@@ -304,7 +289,12 @@ C
      &        DKEEP(1),PIVNUL_LIST(1),LPN_LIST
      &        , LRGROUPS
      &             )
-          IF ( INFO(1) .LT. 0 ) GOTO 640
+        IF ( INFO(1) .LT. 0 ) GOTO 640
+        IF (MPP.GT.0)
+     &   CALL MUMPS_PRINT_STILL_ACTIVE (MYID_NODES, KEEP, 
+     &                        dble(DKEEP(17)), 
+     &                        OPELI,
+     &                        OPLAST_PRINTED, MPP)
        ELSE
          CALL SMUMPS_FAC2_LDLT( COMM_LOAD, ASS_IRECV,
      &             N, INODE, FPERE, IW, LIW, A, LA, UU,

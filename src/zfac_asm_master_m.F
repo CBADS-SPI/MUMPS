@@ -1,6 +1,6 @@
 C
-C  This file is part of MUMPS 5.3.0, released
-C  on Tue Mar 31 17:14:49 UTC 2020
+C  This file is part of MUMPS 5.3.3, released
+C  on Mon Jun 15 09:57:25 UTC 2020
 C
 C
 C  Copyright 1991-2020 CERFACS, CNRS, ENS Lyon, INP Toulouse, Inria,
@@ -8,7 +8,7 @@ C  Mumps Technologies, University of Bordeaux.
 C
 C  This version of MUMPS is provided to you free of charge. It is
 C  released under the CeCILL-C license:
-C  http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html
+C  https://cecill.info/licences/Licence_CeCILL-C_V1-en.html
 C
       MODULE ZMUMPS_FAC_ASM_MASTER_M
       CONTAINS
@@ -305,15 +305,15 @@ C
         END IF
       END IF
       NIV1 = .TRUE.
-        CALL MUMPS_BUILD_SORT_INDEX( MYID, INODE, N, IOLDPS, HF,
+          CALL MUMPS_BUILD_SORT_INDEX(
+     &        MYID, INODE, N, IOLDPS, HF,
      &        NFRONT, NFRONT_EFF, PERM, DAD,
      &        NASS1, NASS, NUMSTK, NUMORG, IWPOSCB,
      &        IFSON, STEP, PIMASTER, PTRIST, PTRAIW, IW, LIW,
      &        INTARR, LINTARR, ITLOC, FILS, FRERE,
      &        SON_LEVEL2, NIV1, NBPROCFILS, KEEP, KEEP8, INFO(1),
      &        ISON_IN_PLACE, 
-     &        PROCNODE_STEPS, SLAVEF, IDUMMY, LIDUMMY
-     &        )
+     &        PROCNODE_STEPS, SLAVEF, IDUMMY, LIDUMMY )
       IF (INFO(1).LT.0) GOTO 300
       IF (NFRONT_EFF.NE.NFRONT) THEN
         IF (NFRONT.GT.NFRONT_EFF) THEN
@@ -886,7 +886,10 @@ C
        ENDIF
        INFO(2)    = NUMSTK + 1
       ENDIF
-  490 CALL  ZMUMPS_BDC_ERROR( MYID, SLAVEF, COMM, KEEP )
+  490 CONTINUE
+      IF ( KEEP(405) .EQ. 0 ) THEN
+        CALL  ZMUMPS_BDC_ERROR( MYID, SLAVEF, COMM, KEEP )
+      ENDIF
   500 CONTINUE
       RETURN
       END SUBROUTINE ZMUMPS_FAC_ASM_NIV1
@@ -1727,10 +1730,8 @@ C
      &      ITLOC, RHS_MUMPS, FILS, DAD,
      &      PTRARW, PTRAIW, INTARR, DBLARR,
      &      ND, FRERE, LPTRAR, NELT, IW, IW,
-     &
-     &      ISTEP_TO_INIV2, TAB_POS_IN_PERE
-     &               , LRGROUPS
-     &      )
+     &      ISTEP_TO_INIV2, TAB_POS_IN_PERE,
+     &      LRGROUPS )
            IF ( INFO(1) .LT. 0 ) GOTO 500
           ELSE
            IERR = -1
