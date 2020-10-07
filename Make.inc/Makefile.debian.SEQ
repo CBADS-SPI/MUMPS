@@ -9,7 +9,7 @@
 # apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
 # Begin orderings
-LSCOTCHDIR = /usr/lib
+LSCOTCHDIR = /usr/lib/x86_64-linux-gnu
 ISCOTCH   = -I/usr/include/scotch
 
 #LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
@@ -19,9 +19,9 @@ LPORDDIR = $(topdir)/PORD/lib/
 IPORD    = -I$(topdir)/PORD/include/
 LPORD    = -L$(LPORDDIR) -lpord
 
-LMETISDIR = /usr/lib 
+LMETISDIR = /usr/lib/x86_64-linux-gnu
 #IMETIS    = -I/usr/include/parmetis
-IMETIS    = -I/usr/include/metis
+IMETIS    = -I/usr/include
 
 # LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
 LMETIS    = -L$(LMETISDIR) -lmetis
