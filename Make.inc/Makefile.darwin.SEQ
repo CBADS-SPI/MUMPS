@@ -1,0 +1,71 @@
+#
+#  This file is part of MUMPS 5.3.3, released
+#  on Mon Jun 15 09:57:25 UTC 2020
+#
+# These settings for a PC under Debian/linux with standard packages :
+# metis (parmetis), scotch (ptscotch), openmpi, gfortran
+
+# packages installation: 
+# apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
+
+# Begin orderings
+LSCOTCHDIR = $(topdir)/../scotch/lib
+ISCOTCH   = -I$(topdir)/../scotch/include
+
+#LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
+LSCOTCH   = $(LSCOTCHDIR)/libesmumps.a $(LSCOTCHDIR)/libscotch.a $(LSCOTCHDIR)/libscotcherr.a 
+
+LPORDDIR = $(topdir)/PORD/lib/
+IPORD    = -I$(topdir)/PORD/include/
+LPORD    = -L$(LPORDDIR) -lpord
+
+LMETISDIR = /usr/lib/x86_64-linux-gnu
+#IMETIS    = -I/usr/include/parmetis
+IMETIS    = -I$(topdir)/../metis/include
+
+# LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
+LMETIS    = $(topdir)/../metis/build/Darwin-x86_64/libmetis/libmetis.a
+
+# Corresponding variables reused later
+#ORDERINGSF = -Dmetis -Dpord -Dparmetis -Dscotch -Dptscotch
+ORDERINGSF = -Dmetis -Dpord -Dscotch
+ORDERINGSC  = $(ORDERINGSF)
+
+LORDERINGS = $(LMETIS) $(LPORD) $(LSCOTCH)
+IORDERINGSF = $(ISCOTCH)
+IORDERINGSC = $(IMETIS) $(IPORD) $(ISCOTCH)
+# End orderings
+################################################################################
+
+PLAT    =
+LIBEXT  = .a
+OUTC    = -o 
+OUTF    = -o 
+RM = /bin/rm -f
+CC = gcc -fPIC
+FC = gfortran -fPIC -fallow-argument-mismatch
+FL = gfortran -fPIC -fallow-argument-mismatch
+AR = ar vr 
+RANLIB = ranlib
+LAPACK = -llapack
+
+
+
+INCSEQ = -I$(topdir)/libseq
+LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
+
+LIBBLAS = -lblas
+LIBOTHERS = -lpthread
+
+#Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
+CDEFS   = -DAdd_
+
+#Begin Optimized options
+OPTF    = -O 
+OPTL    = -O 
+OPTC    = -O
+#End Optimized options
+ 
+INCS = $(INCSEQ)
+LIBS = $(LIBSEQ)
+LIBSEQNEEDED = libseqneeded
