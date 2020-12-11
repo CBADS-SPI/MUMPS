@@ -1,6 +1,6 @@
 #
-#  This file is part of MUMPS 5.3.3, released
-#  on Mon Jun 15 09:57:25 UTC 2020
+#  This file is part of MUMPS 5.3.5, released
+#  on Thu Oct 22 09:29:08 UTC 2020
 #
 # These settings for a PC under Debian/linux with standard packages :
 # metis (parmetis), scotch (ptscotch), openmpi, gfortran
@@ -9,22 +9,22 @@
 # apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
 # Begin orderings
-LSCOTCHDIR = $(topdir)/../scotch/lib
-ISCOTCH   = -I$(topdir)/../scotch/include
+LSCOTCHDIR = /usr/lib
+ISCOTCH   = -I/usr/include/scotch
 
 #LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
-LSCOTCH   = $(LSCOTCHDIR)/libesmumps.a $(LSCOTCHDIR)/libscotch.a $(LSCOTCHDIR)/libscotcherr.a 
+LSCOTCH   = -L$(LSCOTCHDIR) -lesmumps -lscotch -lscotcherr
 
 LPORDDIR = $(topdir)/PORD/lib/
 IPORD    = -I$(topdir)/PORD/include/
 LPORD    = -L$(LPORDDIR) -lpord
 
-LMETISDIR = /usr/lib/x86_64-linux-gnu
+LMETISDIR = /usr/lib 
 #IMETIS    = -I/usr/include/parmetis
-IMETIS    = -I$(topdir)/../metis/build/Linux-x86_64/include
+IMETIS    = -I/usr/include/metis
 
 # LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
-LMETIS    = $(topdir)/../metis/build/Linux-x86_64/libmetis/libmetis.a
+LMETIS    = -L$(LMETISDIR) -lmetis
 
 # Corresponding variables reused later
 #ORDERINGSF = -Dmetis -Dpord -Dparmetis -Dscotch -Dptscotch
@@ -42,9 +42,9 @@ LIBEXT  = .a
 OUTC    = -o 
 OUTF    = -o 
 RM = /bin/rm -f
-CC = gcc -fPIC
-FC = gfortran -fPIC
-FL = gfortran -fPIC
+CC = gcc
+FC = gfortran
+FL = gfortran
 AR = ar vr 
 RANLIB = ranlib
 LAPACK = -llapack

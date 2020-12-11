@@ -1,6 +1,6 @@
 #
-#  This file is part of MUMPS 5.3.3, released
-#  on Mon Jun 15 09:57:25 UTC 2020
+#  This file is part of MUMPS 5.3.5, released
+#  on Thu Oct 22 09:29:08 UTC 2020
 #
 topdir = ..
 libdir = $(topdir)/lib
@@ -15,7 +15,7 @@ all:	c z s d multi
 c:	csimpletest csimpletest_save_restore
 z:	zsimpletest zsimpletest_save_restore
 s:	ssimpletest ssimpletest_save_restore
-d:	dsimpletest dsimpletest_save_restore c_example_save_restore c_example c_sparse_example
+d:	dsimpletest dsimpletest_save_restore c_example_save_restore c_example
 multi:	multiple_arithmetics_example
 
 
@@ -50,8 +50,6 @@ zsimpletest: $(LIBZMUMPS)  $$@.o
 c_example:	$(LIBDMUMPS) $$@.o
 	$(FL) -o $@ $(OPTL) $@.o $(LIBDMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
 
-c_sparse_example:	$(LIBDMUMPS) $$@.o
-	$(FL) -o $@ $(OPTL) $@.o $(LIBDMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)
 
 multiple_arithmetics_example:	$(LIBSMUMPS) $(LIBDMUMPS) $(LIBCMUMPS) $(LIBZMUMPS) $$@.o
 	$(FL) -o $@ $(OPTL) $@.o $(LIBSMUMPS) $(LIBDMUMPS) $(LIBCMUMPS) $(LIBZMUMPS) $(LORDERINGS) $(LIBS) $(LIBBLAS) $(LIBOTHERS)

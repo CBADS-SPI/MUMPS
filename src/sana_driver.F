@@ -1,14 +1,15 @@
 C
-C  This file is part of MUMPS 5.3.3, released
-C  on Mon Jun 15 09:57:25 UTC 2020
+C  This file is part of MUMPS 5.3.5, released
+C  on Thu Oct 22 09:29:08 UTC 2020
 C
 C
 C  Copyright 1991-2020 CERFACS, CNRS, ENS Lyon, INP Toulouse, Inria,
 C  Mumps Technologies, University of Bordeaux.
 C
 C  This version of MUMPS is provided to you free of charge. It is
-C  released under the CeCILL-C license:
-C  https://cecill.info/licences/Licence_CeCILL-C_V1-en.html
+C  released under the CeCILL-C license 
+C  (see doc/CeCILL-C_V1-en.txt, doc/CeCILL-C_V1-fr.txt, and
+C  https://cecill.info/licences/Licence_CeCILL-C_V1-en.html)
 C
 C
       SUBROUTINE SMUMPS_ANA_DRIVER(id)
@@ -57,7 +58,6 @@ C     Other locals
       INTEGER IRANK
       INTEGER MP, LP, MPG
       LOGICAL PROK, PROKG, LISTVAR_SCHUR_2BE_FREED, LPOK
-      LOGICAL READY_FOR_ANA_F
       INTEGER SIZE_SCHUR_PASSED
       INTEGER SBUF_SEND_FR, SBUF_REC_FR
       INTEGER SBUF_SEND_LR, SBUF_REC_LR
@@ -86,9 +86,7 @@ C
       INTEGER                           :: LIPOOL
       INTEGER, ALLOCATABLE, TARGET, DIMENSION(:) :: PAR2_NODES
       INTEGER, DIMENSION(:), POINTER             :: PAR2_NODESPTR
-      INTEGER          :: SIZE_PAR2_NODESPTR
       INTEGER, ALLOCATABLE, DIMENSION(:) :: PROCNODE
-      INTEGER, ALLOCATABLE, DIMENSION(:) :: MAPCOL
       INTEGER, DIMENSION(:), ALLOCATABLE :: IWtemp
       INTEGER, DIMENSION(:), ALLOCATABLE :: XNODEL, NODEL
       INTEGER, DIMENSION(:), POINTER :: SSARBR
@@ -110,7 +108,6 @@ C     Element matrix entry
       INTEGER, POINTER, DIMENSION(:) :: JCN_PTR
       INTEGER, POINTER, DIMENSION(:) :: SIZEOFBLOCKS_PTR
       INTEGER, POINTER, DIMENSION(:) :: UNS_PERM_PTR
-      INTEGER :: LSIZEOFBLOCKS_PTR
       LOGICAL :: BDUMMY
       INTEGER(8) :: K8_33relaxed, K8_34relaxed, K8_35relaxed,
      &              K8_50relaxed
@@ -3164,7 +3161,7 @@ C
                END IF
                id%KEEP(23) = 0
             ENDIF
-            IF (id%KEEP(52).NE.0) THEN
+            IF (id%KEEP(52).EQ.-2) THEN
                IF (PROKG) THEN
                   WRITE(MPG,'(A)')
      & ' ** Scaling during analysis not allowed because of Schur'
@@ -3205,8 +3202,6 @@ C     also forbid compressed/constrained ordering...
                id%KEEP(23) = 0
             ENDIF
             IF (id%KEEP(52).EQ.-2) THEN
-C           Only Ruiz & Bora scaling available for dist format 
-C           (Work supported by ANR-SOLSTICE (ANR-06-CIS6-010))
                IF (PROKG) THEN
                   WRITE(MPG,'(A,A)')
      &            ' ** Scaling (ICNTL(8)) during analysis not ', 
