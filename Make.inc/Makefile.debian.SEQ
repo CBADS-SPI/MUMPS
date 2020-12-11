@@ -9,22 +9,22 @@
 # apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
 # Begin orderings
-LSCOTCHDIR = /usr/lib
-ISCOTCH   = -I/usr/include/scotch
+LSCOTCHDIR = $(topdir)/../scotch/lib
+ISCOTCH   = -I$(topdir)/../scotch/include
 
 #LSCOTCH   = -L$(LSCOTCHDIR) -lptesmumps -lptscotch -lptscotcherr
-LSCOTCH   = -L$(LSCOTCHDIR) -lesmumps -lscotch -lscotcherr
+LSCOTCH   = $(LSCOTCHDIR)/libesmumps.a $(LSCOTCHDIR)/libscotch.a $(LSCOTCHDIR)/libscotcherr.a 
 
 LPORDDIR = $(topdir)/PORD/lib/
 IPORD    = -I$(topdir)/PORD/include/
 LPORD    = -L$(LPORDDIR) -lpord
 
-LMETISDIR = /usr/lib 
+LMETISDIR = /usr/lib/x86_64-linux-gnu
 #IMETIS    = -I/usr/include/parmetis
-IMETIS    = -I/usr/include/metis
+IMETIS    = -I$(topdir)/../metis/build/Linux-x86_64/include
 
 # LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
-LMETIS    = -L$(LMETISDIR) -lmetis
+LMETIS    = $(topdir)/../metis/build/Linux-x86_64/libmetis/libmetis.a
 
 # Corresponding variables reused later
 #ORDERINGSF = -Dmetis -Dpord -Dparmetis -Dscotch -Dptscotch
@@ -42,9 +42,9 @@ LIBEXT  = .a
 OUTC    = -o 
 OUTF    = -o 
 RM = /bin/rm -f
-CC = gcc
-FC = gfortran
-FL = gfortran
+CC = gcc -fPIC
+FC = gfortran -fPIC
+FL = gfortran -fPIC
 AR = ar vr 
 RANLIB = ranlib
 LAPACK = -llapack
