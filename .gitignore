@@ -14,3 +14,4 @@ examples/c_sparse_example
 # intermediates
 include/mumps_int_def.h
 src/build_mumps_int_def
+.vscode/
