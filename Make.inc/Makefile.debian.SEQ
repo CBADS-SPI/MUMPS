@@ -21,7 +21,7 @@ LPORD    = -L$(LPORDDIR) -lpord
 
 LMETISDIR = /usr/lib/x86_64-linux-gnu
 #IMETIS    = -I/usr/include/parmetis
-IMETIS    = -I$(topdir)/../metis/build/Linux-x86_64/include
+IMETIS    = -I$(topdir)/../metis/include
 
 # LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
 LMETIS    = $(topdir)/../metis/build/Linux-x86_64/libmetis/libmetis.a
