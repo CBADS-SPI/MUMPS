@@ -47,14 +47,13 @@ FC = gfortran -fPIC -fallow-argument-mismatch
 FL = gfortran -fPIC -fallow-argument-mismatch
 AR = ar vr 
 RANLIB = ranlib
-LAPACK = -llapack
-
-
+LAPACK =
+# empty as provided by openblas
 
 INCSEQ = -I$(topdir)/libseq
 LIBSEQ  = $(LAPACK) -L$(topdir)/libseq -lmpiseq
 
-LIBBLAS = -lblas
+LIBBLAS = /usr/local/opt/libomp/lib/libomp.a /usr/local/opt/openblas/lib/libopenblas.a
 LIBOTHERS = -lpthread
 
 #Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
