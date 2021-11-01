@@ -8,6 +8,8 @@
 # packages installation: 
 # apt-get install libmetis-dev libparmetis-dev libscotch-dev libptscotch-dev libatlas-base-dev openmpi-bin libopenmpi-dev liblapack-dev
 
+arch := $(shell uname -p)
+
 # Begin orderings
 LSCOTCHDIR = $(topdir)/../scotch/lib
 ISCOTCH   = -I$(topdir)/../scotch/include
@@ -24,7 +26,7 @@ LMETISDIR = /usr/lib/x86_64-linux-gnu
 IMETIS    = -I$(topdir)/../metis/include
 
 # LMETIS    = -L$(LMETISDIR) -lparmetis -lmetis
-LMETIS    = $(topdir)/../metis/build/Linux-x86_64/libmetis/libmetis.a
+LMETIS    = $(topdir)/../metis/build/Linux-$(arch)/libmetis/libmetis.a
 
 # Corresponding variables reused later
 #ORDERINGSF = -Dmetis -Dpord -Dparmetis -Dscotch -Dptscotch
